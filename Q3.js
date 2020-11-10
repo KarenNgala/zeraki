@@ -11,16 +11,22 @@
 function ways_to_jump(width_of_river) {
     let remainder = width_of_river % 2
     let count = 1 // every width of the river guarantees a series of 1m jumps
+    let max_2m_jumps = Math.trunc(width_of_river / 2)
 
-    if (width_of_river === 1) { // no stones to jump through
-        console.log(`There is ${count} way to jump over the river`)
-    } else if (remainder === 0) { // 2m jumps for complete river width
-        console.log(`There are ${count += 1} ways to jump over the river`)
-    } else if (remainder === 1) { // series of 2m jumps and 1m jump to complete distance AND series of alternating 2m and 1m hops to complete the distance 
-        console.log(`There are ${count += 2} ways to jump over the river`)
+    if (width_of_river === 1) {
+        count // no stones to jump through
+    } else if (max_2m_jumps > 3) {
+        if (remainder === 0) {
+            count += (max_2m_jumps + 2) // series of complete 2m jumps
+        } else {
+            count += (max_2m_jumps + 1) // series of alternating 2m and 1m hops to complete the distance
+        }
     } else {
-        console.log(`There is ${count} way to jump over the river`)
+        count += max_2m_jumps
     }
+
+    console.log(`There are ${count} ways to jump over the river`)
+    return count
 }
 
 ways_to_jump(21)
